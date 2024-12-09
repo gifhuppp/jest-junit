@@ -50,4 +50,4 @@ jobs:
       - name: install
         run: yarn
       - name: run tests
-        run: yarn test
+        run: NODE_OPTIONS="$NODE_OPTIONS --experimental-vm-modules" yarn test

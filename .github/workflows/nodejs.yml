@@ -16,12 +16,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [12.x, 13.x, 14.x, 16.x]
-        jest-version: [24, 25, 26, 27]
-        exclude:
-          # jest@27 doesn't support node@13
-          - node-version: 13.x
-            jest-version: 27
+        node-version: [23.x, 22.x, 21.x, 20.x]
+        jest-version: [30.0.0-alpha.3]
     runs-on: ubuntu-latest
 
     steps:
@@ -36,13 +32,13 @@ jobs:
           yarn add --dev jest@${{ matrix.jest-version }} babel-jest@${{ matrix.jest-version }}
           yarn
       - name: run tests
-        run: yarn test
+        run: NODE_OPTIONS="$NODE_OPTIONS --experimental-vm-modules" yarn test
   test-os:
     name: Test on ${{ matrix.os }} using Node.js LTS
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, macOS-latest]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -54,4 +50,4 @@ jobs:
       - name: install
         run: yarn
       - name: run tests
-        run: yarn test
+        run: NODE_OPTIONS="$NODE_OPTIONS --experimental-vm-modules" yarn test

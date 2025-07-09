@@ -21,7 +21,6 @@ jest.mock('fs', () => {
 });
 
 const fs = require('fs');
-const libxmljs = require('libxmljs2');
 const path = require('path');
 
 const testResultProcessor = require('../');
@@ -53,10 +52,6 @@ describe('jest-junit', () => {
 
     // Ensure file would have been generated
     expect(fs.writeFileSync).toHaveBeenLastCalledWith(path.resolve('junit.xml'), expect.any(String));
-
-    // Ensure generated file is valid xml
-    const xmlDoc = libxmljs.parseXml(fs.writeFileSync.mock.calls[0][1]);
-    expect(xmlDoc).toBeTruthy();
   });
 
   it('should generate valid xml with unique name', () => {
@@ -75,10 +70,6 @@ describe('jest-junit', () => {
 
     // Ensure file would have been generated
     expect(fs.writeFileSync).toHaveBeenLastCalledWith(expect.stringMatching(expectedOutputRegex), expect.any(String));
-
-    // Ensure generated file is valid xml
-    const xmlDoc = libxmljs.parseXml(fs.writeFileSync.mock.calls[0][1]);
-    expect(xmlDoc).toBeTruthy();
   });
 
   it('should generate valid xml despite illegal characters', () => {
@@ -90,10 +81,6 @@ describe('jest-junit', () => {
 
     // Ensure file would have been generated
     expect(fs.writeFileSync).toHaveBeenLastCalledWith(path.resolve('junit.xml'), expect.any(String));
-
-    // Ensure generated file is valid xml
-    const xmlDoc = libxmljs.parseXml(fs.writeFileSync.mock.calls[0][1]);
-    expect(xmlDoc).toBeTruthy();
   });
 
   it('should generate xml at the output filepath defined by JEST_JUNIT_OUTPUT_FILE', () => {

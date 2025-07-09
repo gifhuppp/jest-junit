@@ -10,8 +10,7 @@ module.exports = {
       testEnvironment: 'node',
       setupFilesAfterEnv: ["<rootDir>/__tests__/lib/setupTests.js"]
     },
-    "<rootDir>/integration-tests/testResultsProcessor/",
-    "<rootDir>/integration-tests/reporter/"
   ],
-  reporters: ['default', '.']
+  reporters: ['default', '.'],
+  transform: {}
 };

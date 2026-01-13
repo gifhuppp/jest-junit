@@ -9,6 +9,7 @@ jest-junit is a Jest reporter that generates JUnit-compatible XML test result fi
 ## Commands
 
 - **Run tests**: `NODE_OPTIONS=--experimental-vm-modules npm test`
+- **Run tests and update snapshots**: `NODE_OPTIONS=--experimental-vm-modules npm test -u`
 - **Run a single test file**: `NODE_OPTIONS=--experimental-vm-modules npx jest __tests__/getOptions.test.js`
 - **Run tests matching a pattern**: `NODE_OPTIONS=--experimental-vm-modules npx jest -t "should generate valid xml"`
 

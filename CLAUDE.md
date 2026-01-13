@@ -14,6 +14,7 @@ jest-junit is a Jest reporter that generates JUnit-compatible XML test result fi
 - **Run tests matching a pattern**: `NODE_OPTIONS=--experimental-vm-modules npx jest -t "should generate valid xml"`
 
 The `--experimental-vm-modules` flag is required for Jest 30+.
+Always run `npm install` if any changes are made to package.json before running tests or committing.
 
 ## Architecture
 

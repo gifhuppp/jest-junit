@@ -7,7 +7,7 @@ Note: as of jest-junit 11.0.0 NodeJS >= 10.12.0 is required.
 
 ## Installation
 ```shell
-yarn add --dev jest-junit
+npm install --save-dev jest-junit
 ```
 
 ## Usage

@@ -41,14 +41,14 @@ describe('getOptions', () => {
 describe('getUniqueOutputName', () =>{
   const defaultPrefix = 'junit'
 
-  it(`should return default ${defaultPrefix} value if given no preferred prefix`, () => {
-    const uniqueOutput = getOptions.getUniqueOutputName()
+  it(`should return default ${defaultPrefix} value if given no preferred prefix`, async () => {
+    const uniqueOutput = await getOptions.getUniqueOutputName()
     expect(uniqueOutput).toContain(defaultPrefix)
   })
 
-  it(`should return apply custom prefix value if given prefix`, () => {
+  it(`should return apply custom prefix value if given prefix`, async () => {
     const customPrefix = "foo"
-    const uniqueOutput = getOptions.getUniqueOutputName(customPrefix)
+    const uniqueOutput = await getOptions.getUniqueOutputName(customPrefix)
     expect(uniqueOutput).not.toContain(defaultPrefix)
     expect(uniqueOutput).toContain(customPrefix)
   })

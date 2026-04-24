@@ -2,11 +2,18 @@
 
 const path = require('path');
 const fs = require('fs');
-const { v1: uuid } = require('uuid');
 
 const constants = require('../constants/index');
 
 const { replaceRootDirInPath } = require('./replaceRootDirInPath');
+
+let uuidV1Promise;
+function loadUuidV1() {
+  if (!uuidV1Promise) {
+    uuidV1Promise = import('uuid').then((mod) => mod.v1);
+  }
+  return uuidV1Promise;
+}
 
 function getEnvOptions() {
   const options = {};
@@ -58,9 +65,10 @@ function replaceRootDirInOutput(rootDir, output) {
   return rootDir !== null ? replaceRootDirInPath(rootDir, output) : output;
 }
 
-function getUniqueOutputName(outputName) {
+async function getUniqueOutputName(outputName) {
+  const v1 = await loadUuidV1();
   const outputPrefix = outputName ? outputName : 'junit'
-  return `${outputPrefix}-${uuid()}.xml`
+  return `${outputPrefix}-${v1()}.xml`
 }
 
 module.exports = {

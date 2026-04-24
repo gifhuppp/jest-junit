@@ -43,9 +43,9 @@ describe('jest-junit', () => {
     }
   });
 
-  it('should generate valid xml with default name', () => {
+  it('should generate valid xml with default name', async () => {
     const noFailingTestsReport = require('../__mocks__/no-failing-tests.json');
-    testResultProcessor(noFailingTestsReport);
+    await testResultProcessor(noFailingTestsReport);
 
     // Ensure fs.writeFileSync is called
     expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
@@ -54,14 +54,14 @@ describe('jest-junit', () => {
     expect(fs.writeFileSync).toHaveBeenLastCalledWith(path.resolve('junit.xml'), expect.any(String));
   });
 
-  it('should generate valid xml with unique name', () => {
+  it('should generate valid xml with unique name', async () => {
     process.env.JEST_JUNIT_UNIQUE_OUTPUT_NAME = 'true'
 
     const outputPrefix = "foo"
 
     process.env.JEST_JUNIT_OUTPUT_NAME = outputPrefix;
     const noFailingTestsReport = require('../__mocks__/no-failing-tests.json');
-    testResultProcessor(noFailingTestsReport);
+    await testResultProcessor(noFailingTestsReport);
 
     // Ensure fs.writeFileSync is called
     expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
@@ -72,9 +72,9 @@ describe('jest-junit', () => {
     expect(fs.writeFileSync).toHaveBeenLastCalledWith(expect.stringMatching(expectedOutputRegex), expect.any(String));
   });
 
-  it('should generate valid xml despite illegal characters', () => {
+  it('should generate valid xml despite illegal characters', async () => {
     const failingTestsWithEscReport = require('../__mocks__/failing-tests-with-esc.json');
-    testResultProcessor(failingTestsWithEscReport);
+    await testResultProcessor(failingTestsWithEscReport);
 
     // Ensure fs.writeFileSync is called
     expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
@@ -83,10 +83,10 @@ describe('jest-junit', () => {
     expect(fs.writeFileSync).toHaveBeenLastCalledWith(path.resolve('junit.xml'), expect.any(String));
   });
 
-  it('should generate xml at the output filepath defined by JEST_JUNIT_OUTPUT_FILE', () => {
+  it('should generate xml at the output filepath defined by JEST_JUNIT_OUTPUT_FILE', async () => {
     process.env.JEST_JUNIT_OUTPUT_FILE = 'path_to_output/output_name.xml'
     const noFailingTestsReport = require('../__mocks__/no-failing-tests.json');
-    testResultProcessor(noFailingTestsReport);
+    await testResultProcessor(noFailingTestsReport);
 
     // Ensure fs.writeFileSync is called
     expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
@@ -97,10 +97,10 @@ describe('jest-junit', () => {
     );
   });
 
-  it('should generate xml at the output filepath defined by outputFile config', () => {
+  it('should generate xml at the output filepath defined by outputFile config', async () => {
     process.env.JEST_JUNIT_OUTPUT_FILE = 'path_to_output/output_name.xml'
     const noFailingTestsReport = require('../__mocks__/no-failing-tests.json');
-    testResultProcessor(noFailingTestsReport, {outputFile: 'path_to_output/output_name.xml' });
+    await testResultProcessor(noFailingTestsReport, {outputFile: 'path_to_output/output_name.xml' });
 
     // Ensure fs.writeFileSync is called
     expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
